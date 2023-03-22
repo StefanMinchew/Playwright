@@ -1,4 +1,5 @@
 import { test } from "../pages/basePage"
+import { expect } from "@playwright/test";
 
 test.describe('Cart page test cases', () => {
 
@@ -12,11 +13,13 @@ test.describe('Cart page test cases', () => {
         await cartPage.checkIfOnCartPage();
     })
 
-    test.skip('Verify that the user can add and see an item in the cart page', async ({ loginPage, homePage, cartPage }) => {
+    test('Verify that the user can add and see an item in the cart page and then remove it', async ({ loginPage, homePage, cartPage }) => {
         await loginPage.login();
         await homePage.addToCartFirstItem();
-        await homePage.getTheFirstItemName();
+        const initialName: string = await homePage.getTheFirstItemName();
         await cartPage.goToCartPage();
-        await cartPage.getNames();
+        const finalName: string = await cartPage.getTheFirstItemName();
+        expect(finalName).toEqual(initialName);
+        await cartPage.removeFirstItem();
     })
 })
