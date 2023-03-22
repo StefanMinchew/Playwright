@@ -13,7 +13,7 @@ export default class LoginPage {
     constructor(page: Page){
         this.page = page;
         this.usernameLocator = page.locator('#user-name');
-        this.passwordLocator = page.locator('#password')
+        this.passwordLocator = page.locator('#password');
         this.loginButtonLocator = page.locator('#login-button');
         this.errorMessageTextLocator = page.locator('#login_button_container > div > form > div.error-message-container.error > h3');
     }
@@ -22,7 +22,7 @@ export default class LoginPage {
         await this.enterUsername(process.env.SAUCE_USERNAME);
         await this.enterPassword(process.env.SAUCE_PASSWORD);
         await this.clickLoginButton();
-        expect(this.page.url()).toContain('inventory')
+        expect(this.page.url()).toContain('inventory');
     }
 
     async loginUnsuccessfulWithWrongPassword(){

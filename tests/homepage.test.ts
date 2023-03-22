@@ -1,5 +1,4 @@
 import { test } from "../pages/basePage"
-import { expect } from "@playwright/test";
 
 test.describe('Home page test cases', () => {
 
@@ -50,6 +49,6 @@ test.describe('Home page test cases', () => {
         await loginPage.login();
         await homePage.changeFilterOptions();
     })
-    
+
 })
 
