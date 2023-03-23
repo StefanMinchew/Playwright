@@ -15,6 +15,11 @@ export default class HomePage {
     facebookLocator: Locator;
     linkedinLocator: Locator;
     itemNameLocator: Locator;
+    logoutButtonLocator: Locator;
+    aboutButtonLocator: Locator;
+    backToProductsButtonLocator: Locator;
+    itemPriceLocator: Locator;
+    itemButtonLocator: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -30,20 +35,38 @@ export default class HomePage {
         this.twitterLocator = page.locator('.social_twitter');
         this.facebookLocator = page.locator('.social_facebook');
         this.linkedinLocator = page.locator('.social_linkedin');
+        this.logoutButtonLocator = page.locator('#logout_sidebar_link');
+        this.aboutButtonLocator = page.locator('#about_sidebar_link')
+        this.backToProductsButtonLocator = page.locator('#back-to-products');
+        this.itemPriceLocator = page.locator('.inventory_item_price')
+        this.itemButtonLocator = page.locator('.btn')
     }
 
     async openHamburgerMenu() {
+        await this.page.waitForLoadState('domcontentloaded');
         await this.hamburgerLocator.click();
         await this.page.waitForLoadState('networkidle');
         await expect(this.hamburgerItemsLocator).toContainText('logout', { ignoreCase: true });
     }
 
     async closeHamburgerMenu() {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
         await this.openHamburgerMenu();
         await this.hamburgerCloseLocator.click();
         await this.hamburgerItemsLocator.waitFor({ state: 'hidden' });
         await expect(this.hamburgerItemsLocator).toBeHidden();
+    }
+
+    async clickLogout() {
+        await this.logoutButtonLocator.click();
+        expect(this.page.url()).toEqual('https://www.saucedemo.com/');
+    }
+
+    async clickAbout() {
+        await this.aboutButtonLocator.click();
+        const popupurl: string = this.page.url();
+        expect(popupurl).toEqual('https://saucelabs.com/');
+
     }
 
     async itemsDisplayedOnHomePage() {
@@ -55,18 +78,35 @@ export default class HomePage {
         }
     }
 
-    async addToCartFirstItem(){
-        await this.page.waitForLoadState('networkidle');
-        const firstItem = await this.itemListLocator.nth(0);
-        const firstItemAddToCartButton = await firstItem.getByText('Add to cart');
-        await firstItemAddToCartButton.click();
-        expect(firstItem.getByText('Remove')).toBeVisible();  
+    async openFirstItem() {
+        await this.itemNameLocator.first().click();
+        expect(this.page.url()).toContain('inventory-item.html?id=');
     }
 
-    async getTheFirstItemName(){
+    async backToProdcuts() {
+        await this.backToProductsButtonLocator.click();
+        expect(this.page.url()).toContain('inventory.html')
+    }
+
+    async addToCartFirstItem() {
+        const toAdd: any = await this.itemButtonLocator.first().innerText();
+        await this.itemButtonLocator.first().waitFor();
+        await this.itemButtonLocator.first().click();
+        const added: any = await this.itemButtonLocator.first().innerText();
+        expect(added).toContain('Remove');
+        expect(added).not.toEqual(toAdd);
+    }
+
+    async getTheFirstItemName() {
         const firstItemHeader = await this.itemNameLocator.nth(0).allInnerTexts();
         expect(firstItemHeader).not.toBeNull();
         return firstItemHeader.toString();
+    }
+
+    async getTheFirstItemPrice() {
+        const firstItemPrice: string = (await this.itemPriceLocator.first().allInnerTexts()).toString();
+        const getThePrice: number = parseFloat(firstItemPrice.replace(/[^\d.]/g, ''));
+        return getThePrice;
     }
 
     async openCart() {
@@ -74,10 +114,10 @@ export default class HomePage {
     }
 
     async changeFilterOptions() {
-        expect(await this.filterLocator.selectOption('az'));
-        expect(await this.filterLocator.selectOption('za'));
-        expect(await this.filterLocator.selectOption('lohi'));
-        expect(await this.filterLocator.selectOption('hilo'));
+        expect(await this.filterLocator.selectOption('az')).toBeDefined();
+        expect(await this.filterLocator.selectOption('za')).toBeDefined();
+        expect(await this.filterLocator.selectOption('lohi')).toBeDefined();
+        expect(await this.filterLocator.selectOption('hilo')).toBeDefined();
     }
 
     async footerIsDisplayedCorrectly() {
@@ -93,27 +133,24 @@ export default class HomePage {
         const popupPromise: any = this.page.waitForEvent('popup');
         await this.twitterLocator.click();
         const popup = await popupPromise;
-        await popup.waitForLoadState();
-        const popupurl: string = await popup.url();
-        expect(popupurl).toContain('twitter.com');
+        await popup.waitForLoadState('load');
+        expect(popup.url()).toContain('twitter.com');
     }
 
     async canOpenFacebook() {
         const popupPromise: any = this.page.waitForEvent('popup');
         await this.facebookLocator.click();
         const popup = await popupPromise;
-        await popup.waitForLoadState();
-        const popupurl: string = await popup.url();
-        expect(popupurl).toContain('facebook.com');
+        await popup.waitForLoadState('load');
+        expect(popup.url()).toContain('facebook.com');
     }
 
     async canOpenLinkedin() {
-        const popupPromise: any = this.page.waitForEvent('popup');
+        const popupPromise = this.page.waitForEvent('popup');
         await this.linkedinLocator.click();
         const popup = await popupPromise;
-        await popup.waitForLoadState();
-        const popupurl: string = await popup.url();
-        expect(popupurl).toContain('linkedin.com');
+        await popup.waitForLoadState('load');
+        expect(popup.url()).toContain('linkedin.com');
     }
 
 }
