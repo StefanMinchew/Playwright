@@ -22,7 +22,7 @@ export default class LoginPage {
         await this.enterUsername(process.env.SAUCE_USERNAME);
         await this.enterPassword(process.env.SAUCE_PASSWORD);
         await this.clickLoginButton();
-        expect(this.page.url()).toContain('inventory');
+        expect(await this.page.url()).toContain('inventory');
     }
 
     async loginUnsuccessfulWithWrongPassword(){
@@ -32,7 +32,7 @@ export default class LoginPage {
         await this.enterPassword(credentials_data.wrongPassword);
         await this.clickLoginButton();
         expect(await this.checkIfErrorMessageIsVisible());
-        expect(this.page.url()).toBe(getUrl);
+        expect(await this.page.url()).toBe(getUrl);
     }
 
     async loginUnsuccessfulWithWrongUsername(){

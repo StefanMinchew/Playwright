@@ -1,5 +1,8 @@
 {
     "invalidUsernameAndPasswordErrorMessage": "Epic sadface: Username and password do not match any user in this service",
     "missingPasswordErrorMessage": "Epic sadface: Password is required",
-    "missingUsernameErrorMessage": "Epic sadface: Username is required"
+    "missingUsernameErrorMessage": "Epic sadface: Username is required",
+    "missingFirstNameErrorMessage": "Error: First Name is required",
+    "missingLastNameErrorMessage": "Error: Last Name is required",
+    "missingPostalcodeErrorMessage": "Error: Postal Code is required"
 }

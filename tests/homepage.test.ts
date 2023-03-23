@@ -16,6 +16,18 @@ test.describe('Home page test cases', () => {
             await loginPage.login();
             await homePage.closeHamburgerMenu();
         })
+
+        test('Able to logout #sanity', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.openHamburgerMenu();
+            await homePage.clickLogout();
+        })
+
+        test('Able to go to About page #sanity', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.openHamburgerMenu();
+            await homePage.clickAbout();
+        })
     })
 
     test.describe('Footer test cases', () => {
@@ -40,15 +52,26 @@ test.describe('Home page test cases', () => {
         })
     })
 
-    test('Items displayed on the home page #sanity', async ({ loginPage, homePage }) => {
-        await loginPage.login();
-        await homePage.itemsDisplayedOnHomePage();
-    })
+    test.describe('Items test cases', () => {
+        test('Items displayed on the home page #sanity', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.itemsDisplayedOnHomePage();
+        })
+    
+        test('Change items filter', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.changeFilterOptions();
+        })
 
-    test('Change items filter', async ({ loginPage, homePage }) => {
-        await loginPage.login();
-        await homePage.changeFilterOptions();
+        test('Open first item #sanity', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.openFirstItem();
+        })
+        test('Back to products', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.openFirstItem();
+            await homePage.backToProdcuts();
+        })
     })
-
 })
 

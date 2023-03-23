@@ -18,19 +18,19 @@ test.describe('Login page test cases', () => {
         await loginPage.loginUnsuccessfulWithWrongUsername();
     })
 
-    test("Login unsuccessful when using wrong credentials and the error message appears", async ({ loginPage }) => {
+    test("Login unsuccessful when using wrong credentials and the error message appears #errormessages", async ({ loginPage }) => {
         await loginPage.loginUnsuccessfulWithWrongUsernameAndPassword();
     })
 
-    test("Login unsuccessful when missing username and the error message appears", async ({ loginPage }) => {
+    test("Login unsuccessful when missing username and the error message appears #errormessages", async ({ loginPage }) => {
         await loginPage.loginUnsuccessfulWithMissingUsername();
     })
 
-    test("Login unsuccessful when missing password and the error message appears", async ({ loginPage }) => {
+    test("Login unsuccessful when missing password and the error message appears #errormessages", async ({ loginPage }) => {
         await loginPage.loginUnsuccessfulWithMissingPassword();
     })
 
-    test("Login unsuccessful when missing credentials and the error message appears", async ({ loginPage }) => {
+    test("Login unsuccessful when missing credentials and the error message appears #errormessages", async ({ loginPage }) => {
         await loginPage.loginUnsuccessfulWithMissingUsernameAndPassword();
     })
 
