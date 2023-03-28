@@ -43,26 +43,28 @@ export default class HomePage {
     }
 
     async openHamburgerMenu() {
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.hamburgerLocator.waitFor();;
         await this.hamburgerLocator.click();
         await this.page.waitForLoadState('networkidle');
         await expect(this.hamburgerItemsLocator).toContainText('logout', { ignoreCase: true });
     }
 
     async closeHamburgerMenu() {
-        await this.page.waitForLoadState('domcontentloaded');
         await this.openHamburgerMenu();
+        await this.hamburgerCloseLocator.waitFor();
         await this.hamburgerCloseLocator.click();
         await this.hamburgerItemsLocator.waitFor({ state: 'hidden' });
         await expect(this.hamburgerItemsLocator).toBeHidden();
     }
 
     async clickLogout() {
+        await this.logoutButtonLocator.waitFor();
         await this.logoutButtonLocator.click();
         expect(this.page.url()).toEqual('https://www.saucedemo.com/');
     }
 
     async clickAbout() {
+        await this.aboutButtonLocator.waitFor();
         await this.aboutButtonLocator.click();
         const popupurl: string = this.page.url();
         expect(popupurl).toEqual('https://saucelabs.com/');
