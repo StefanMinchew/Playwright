@@ -91,17 +91,20 @@ export default class CartPage {
     }
 
     async clickContinueShoppingButton() {
+        await this.continueShoppingButtonLocator.waitFor();
         await this.continueShoppingButtonLocator.click();
         expect(this.page.url()).toContain('inventory.html');
     }
 
     async clickCheckoutButton() {
+        await this.checkoutButtonLocator.waitFor();
         await this.checkoutButtonLocator.click();
         await expect(this.checkoutInfoLocator).toBeVisible();
     }
 
     async clickCancelButton() {
         const getInitialUrl: string = await this.page.url();
+        await this.cancelButtonLocator.waitFor();
         await this.cancelButtonLocator.click();
         const getFinalUrl: string = await this.page.url();
         expect(getFinalUrl).not.toEqual(getInitialUrl);

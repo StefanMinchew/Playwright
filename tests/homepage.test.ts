@@ -57,11 +57,6 @@ test.describe('Home page test cases', () => {
             await loginPage.login();
             await homePage.itemsDisplayedOnHomePage();
         })
-    
-        test('Change items filter', async ({ loginPage, homePage }) => {
-            await loginPage.login();
-            await homePage.changeFilterOptions();
-        })
 
         test('Open first item #sanity', async ({ loginPage, homePage }) => {
             await loginPage.login();
@@ -71,6 +66,28 @@ test.describe('Home page test cases', () => {
             await loginPage.login();
             await homePage.openFirstItem();
             await homePage.backToProdcuts();
+        })
+    })
+
+    test.describe('Filter options #filter', () => {
+        test('Check A to Z sorting', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.sortByNameAlphabetically();
+        })
+
+        test('Check Z to A sorting #filter', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.sortByNameReverseAlphabetically();
+        })
+
+        test('Check Low to High sorting #filter', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.sortByLowToHigh();
+        })
+
+        test('Check High to Low sorting #filter', async ({ loginPage, homePage }) => {
+            await loginPage.login();
+            await homePage.sortByHighToLow();
         })
     })
 })
