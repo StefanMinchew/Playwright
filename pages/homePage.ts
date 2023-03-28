@@ -165,14 +165,14 @@ export default class HomePage {
         let removeNoNDecimalsAndNumbersAfterFilter = pricetextAfterFilter.replace(/[^0-9.,]/g, '')
         let pricetextInitialToArrayAfterFilter: Array<string> = removeNoNDecimalsAndNumbersAfterFilter.split(',');
         const pricetextInitialToNumberArrayAfterFilter: Array<number> = pricetextInitialToArrayAfterFilter.map(Number);
-        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => a-b);
+        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => a - b);
         expect(pricetextInitialToNumberArray).not.toEqual(pricetextInitialToNumberArrayAfterFilter);
         expect(pricetextInitialToNumberArrayAfterFilter).toEqual(afterFilterSort);
     }
 
     async sortByHighToLow() {
         let pricetextInitial: any = (await this.itemPriceLocator.allTextContents()).toString();
-        let removeNoNDecimalsAndNumbers = pricetextInitial.replace(/[^0-9.,]/g, '')
+        let removeNoNDecimalsAndNumbers = pricetextInitial.replace(/[^0-9.,]/g, '');
         let pricetextInitialToArray: Array<string> = removeNoNDecimalsAndNumbers.split(',');
         const pricetextInitialToNumberArray: Array<number> = pricetextInitialToArray.map(Number);
         await this.changeFilterToHILO();
@@ -180,65 +180,7 @@ export default class HomePage {
         let removeNoNDecimalsAndNumbersAfterFilter = pricetextAfterFilter.replace(/[^0-9.,]/g, '')
         let pricetextInitialToArrayAfterFilter: Array<string> = removeNoNDecimalsAndNumbersAfterFilter.split(',');
         const pricetextInitialToNumberArrayAfterFilter: Array<number> = pricetextInitialToArrayAfterFilter.map(Number);
-        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => b-a);
-        expect(pricetextInitialToNumberArray).not.toEqual(pricetextInitialToNumberArrayAfterFilter);
-        expect(pricetextInitialToNumberArrayAfterFilter).toEqual(afterFilterSort);
-    }
-
-    async sortByNameAlphabetically() {
-        const itemCount = await this.itemListLocator.count();
-        let itemNames: string[];
-        for (let i = 0; i < itemCount; i++) {
-            itemNames = await this.itemNameLocator.nth(i).allInnerTexts();
-            let sortedNames: string[] = itemNames.sort();
-            expect(sortedNames[i]).toEqual(itemNames[i]);
-        }
-    }
-
-    async sortByNameReverseAlphabetically() {
-        let itemNames: string[];
-        let itemNamesAfterFilter: string[];
-        let sortedItemNamesAfterFilter: string[];
-        let itemNamesAfterFilterReversed: string[];
-        let reverseSortedItemNamesAfterFilter: string[];
-        itemNames = await this.itemNameLocator.allInnerTexts();
-        await this.changeFilterToZA();
-        itemNamesAfterFilter = await this.itemNameLocator.allInnerTexts();
-        sortedItemNamesAfterFilter = itemNamesAfterFilter.sort((a, b) => b.localeCompare(a));
-        itemNamesAfterFilterReversed = await this.itemNameLocator.allInnerTexts();
-        reverseSortedItemNamesAfterFilter = itemNamesAfterFilterReversed.sort((a, b) => a.localeCompare(b));
-
-        expect(itemNamesAfterFilter).not.toEqual(itemNames);
-        expect(reverseSortedItemNamesAfterFilter).toEqual(itemNames);
-        expect(reverseSortedItemNamesAfterFilter).not.toEqual(itemNamesAfterFilter);
-    }
-
-    async sortByLowToHigh() {
-        let pricetextInitial: any = (await this.itemPriceLocator.allTextContents()).toString();
-        let removeNoNDecimalsAndNumbers = pricetextInitial.replace(/[^0-9.,]/g, '')
-        let pricetextInitialToArray: Array<string> = removeNoNDecimalsAndNumbers.split(',');
-        const pricetextInitialToNumberArray: Array<number> = pricetextInitialToArray.map(Number);
-        await this.changeFilterToLOHI();
-        let pricetextAfterFilter: any = (await this.itemPriceLocator.allTextContents()).toString();
-        let removeNoNDecimalsAndNumbersAfterFilter = pricetextAfterFilter.replace(/[^0-9.,]/g, '')
-        let pricetextInitialToArrayAfterFilter: Array<string> = removeNoNDecimalsAndNumbersAfterFilter.split(',');
-        const pricetextInitialToNumberArrayAfterFilter: Array<number> = pricetextInitialToArrayAfterFilter.map(Number);
-        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => a-b);
-        expect(pricetextInitialToNumberArray).not.toEqual(pricetextInitialToNumberArrayAfterFilter);
-        expect(pricetextInitialToNumberArrayAfterFilter).toEqual(afterFilterSort);
-    }
-
-    async sortByHighToLow() {
-        let pricetextInitial: any = (await this.itemPriceLocator.allTextContents()).toString();
-        let removeNoNDecimalsAndNumbers = pricetextInitial.replace(/[^0-9.,]/g, '')
-        let pricetextInitialToArray: Array<string> = removeNoNDecimalsAndNumbers.split(',');
-        const pricetextInitialToNumberArray: Array<number> = pricetextInitialToArray.map(Number);
-        await this.changeFilterToHILO();
-        let pricetextAfterFilter: any = (await this.itemPriceLocator.allTextContents()).toString();
-        let removeNoNDecimalsAndNumbersAfterFilter = pricetextAfterFilter.replace(/[^0-9.,]/g, '')
-        let pricetextInitialToArrayAfterFilter: Array<string> = removeNoNDecimalsAndNumbersAfterFilter.split(',');
-        const pricetextInitialToNumberArrayAfterFilter: Array<number> = pricetextInitialToArrayAfterFilter.map(Number);
-        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => b-a);
+        const afterFilterSort = pricetextInitialToNumberArrayAfterFilter.sort((a, b) => b - a);
         expect(pricetextInitialToNumberArray).not.toEqual(pricetextInitialToNumberArrayAfterFilter);
         expect(pricetextInitialToNumberArrayAfterFilter).toEqual(afterFilterSort);
     }
