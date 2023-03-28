@@ -36,7 +36,7 @@ export default defineConfig({
     actionTimeout: 0,
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://www.saucedemo.com/',
-    headless: false,
+    headless: true,
     screenshot: "off",
     video: "off",
     /* Slowing down the tests play*/

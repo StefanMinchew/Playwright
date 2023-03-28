@@ -69,23 +69,23 @@ test.describe('Home page test cases', () => {
         })
     })
 
-    test.describe.only('Filter options', () => {
+    test.describe('Filter options #filter', () => {
         test('Check A to Z sorting', async ({ loginPage, homePage }) => {
             await loginPage.login();
             await homePage.sortByNameAlphabetically();
         })
 
-        test('Check Z to A sorting', async ({ loginPage, homePage }) => {
+        test('Check Z to A sorting #filter', async ({ loginPage, homePage }) => {
             await loginPage.login();
             await homePage.sortByNameReverseAlphabetically();
         })
 
-        test('Check Low to High sorting', async ({ loginPage, homePage }) => {
+        test('Check Low to High sorting #filter', async ({ loginPage, homePage }) => {
             await loginPage.login();
             await homePage.sortByLowToHigh();
         })
 
-        test('Check High to Low sorting', async ({ loginPage, homePage }) => {
+        test('Check High to Low sorting #filter', async ({ loginPage, homePage }) => {
             await loginPage.login();
             await homePage.sortByHighToLow();
         })
