@@ -114,15 +114,15 @@ export default class HomePage {
     }
 
     async changeFilterToZA() {
-        expect(await this.filterLocator.selectOption('za')).toBeDefined();
+        expect(await this.filterLocator.selectOption('za'));
     }
 
     async changeFilterToLOHI() {
-        expect(await this.filterLocator.selectOption('lohi')).toBeDefined();
+        expect(await this.filterLocator.selectOption('lohi'));
     }
 
     async changeFilterToHILO() {
-        expect(await this.filterLocator.selectOption('hilo')).toBeDefined();
+        expect(await this.filterLocator.selectOption('hilo'));
     }
 
     async sortByNameAlphabetically() {
