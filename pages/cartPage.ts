@@ -60,19 +60,19 @@ export default class CartPage {
         return firsteItemHeader.toString();
     }
 
-    async getTheTotalPrice(){
+    async getTheTotalPrice() {
         const totalPrice: string = (await this.totalPriceLocatorWithVAT.first().allInnerTexts()).toString();
         const getThePrice: number = parseFloat(totalPrice.replace(/[^\d.]/g, ''));
         return getThePrice;
     }
 
-    async getTheTotalPriceWithoutVAT(){
+    async getTheTotalPriceWithoutVAT() {
         const totalPrice: string = (await this.totalPriceLocator.first().allInnerTexts()).toString();
         const getThePrice: number = parseFloat(totalPrice.replace(/[^\d.]/g, ''));
         return getThePrice;
     }
 
-    async getTheTax(){
+    async getTheTax() {
         const tax: string = (await this.taxLocator.first().allInnerTexts()).toString();
         const getTheVAT: number = parseFloat(tax.replace(/[^\d.]/g, ''));
         return getTheVAT;
@@ -126,13 +126,13 @@ export default class CartPage {
         }
     }
 
-    async clickFinishButton(){
+    async clickFinishButton() {
         await this.finishButtonLocator.click();
         const text = await this.checkoutCompleteHeaderLocator.innerText();
         expect(text).toContain('Thank you for your order!')
     }
 
-    async clickBackHomeButton(){
+    async clickBackHomeButton() {
         await this.backHomeButton.click();
         expect(this.page.url()).toContain('inventory.html');
     }
@@ -140,7 +140,7 @@ export default class CartPage {
     async fillFirstName() {
         await this.firstNameLocator.fill('John');
     }
-    
+
     async fillLastName() {
         await this.lastNameLocator.fill('Doe');
     }

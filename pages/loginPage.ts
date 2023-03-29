@@ -10,7 +10,7 @@ export default class LoginPage {
     loginButtonLocator: Locator;
     errorMessageTextLocator: Locator;
 
-    constructor(page: Page){
+    constructor(page: Page) {
         this.page = page;
         this.usernameLocator = page.locator('#user-name');
         this.passwordLocator = page.locator('#password');
@@ -18,14 +18,14 @@ export default class LoginPage {
         this.errorMessageTextLocator = page.locator('#login_button_container > div > form > div.error-message-container.error > h3');
     }
 
-    async login(){
+    async login() {
         await this.enterUsername(process.env.SAUCE_USERNAME);
         await this.enterPassword(process.env.SAUCE_PASSWORD);
         await this.clickLoginButton();
         expect(await this.page.url()).toContain('inventory');
     }
 
-    async loginUnsuccessfulWithWrongPassword(){
+    async loginUnsuccessfulWithWrongPassword() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.enterUsername(process.env.SAUCE_USERNAME);
@@ -35,7 +35,7 @@ export default class LoginPage {
         expect(await this.page.url()).toBe(getUrl);
     }
 
-    async loginUnsuccessfulWithWrongUsername(){
+    async loginUnsuccessfulWithWrongUsername() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.enterUsername(credentials_data.wrongUsername);
@@ -45,7 +45,7 @@ export default class LoginPage {
         expect(this.page.url()).toBe(getUrl);
     }
 
-    async loginUnsuccessfulWithWrongUsernameAndPassword(){
+    async loginUnsuccessfulWithWrongUsernameAndPassword() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.enterUsername(credentials_data.wrongUsername);
@@ -56,7 +56,7 @@ export default class LoginPage {
         await this.checkErrorMessageText();
     }
 
-    async loginUnsuccessfulWithMissingUsername(){
+    async loginUnsuccessfulWithMissingUsername() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.enterPassword(credentials_data.wrongPassword);
@@ -66,7 +66,7 @@ export default class LoginPage {
         await this.checkErrorMessageTextWhenMissingUsername();
     }
 
-    async loginUnsuccessfulWithMissingPassword(){
+    async loginUnsuccessfulWithMissingPassword() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.enterUsername(credentials_data.wrongUsername);
@@ -76,7 +76,7 @@ export default class LoginPage {
         await this.checkErrorMessageTextWhenMissingPassword();
     }
 
-    async loginUnsuccessfulWithMissingUsernameAndPassword(){
+    async loginUnsuccessfulWithMissingUsernameAndPassword() {
         const getUrl: string = this.page.url();
         expect(await this.checkIfErrorMessageIsHidden());
         await this.clickLoginButton();
@@ -85,37 +85,37 @@ export default class LoginPage {
         await this.checkErrorMessageTextWhenMissingUsername();
     }
 
-    async enterUsername(username: any){
+    async enterUsername(username: any) {
         await this.usernameLocator.fill(username);
     }
 
-    async enterPassword(password: any){
+    async enterPassword(password: any) {
         await this.passwordLocator.fill(password);
     }
 
-    async clickLoginButton(){
+    async clickLoginButton() {
         await this.loginButtonLocator.click();
     }
 
-    async checkIfErrorMessageIsVisible(){
-        await this.errorMessageTextLocator.waitFor({ state: 'visible'});
+    async checkIfErrorMessageIsVisible() {
+        await this.errorMessageTextLocator.waitFor({ state: 'visible' });
     }
 
-    async checkIfErrorMessageIsHidden(){
-        await this.errorMessageTextLocator.waitFor({ state: 'hidden'});
+    async checkIfErrorMessageIsHidden() {
+        await this.errorMessageTextLocator.waitFor({ state: 'hidden' });
     }
 
-    async checkErrorMessageText(){
+    async checkErrorMessageText() {
         const errorMessage: string = await this.errorMessageTextLocator.innerText();
         expect(errorMessage).toEqual(error_messages_data.invalidUsernameAndPasswordErrorMessage);
     }
 
-    async checkErrorMessageTextWhenMissingPassword(){
+    async checkErrorMessageTextWhenMissingPassword() {
         const errorMessage: string = await this.errorMessageTextLocator.innerText();
         expect(errorMessage).toEqual(error_messages_data.missingPasswordErrorMessage);
     }
 
-    async checkErrorMessageTextWhenMissingUsername(){
+    async checkErrorMessageTextWhenMissingUsername() {
         const errorMessage: string = await this.errorMessageTextLocator.innerText();
         expect(errorMessage).toEqual(error_messages_data.missingUsernameErrorMessage);
     }
