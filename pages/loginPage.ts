@@ -86,11 +86,11 @@ export default class LoginPage {
     }
 
     async enterUsername(username: any){
-        await this.usernameLocator.type(username);
+        await this.usernameLocator.fill(username);
     }
 
     async enterPassword(password: any){
-        await this.passwordLocator.type(password);
+        await this.passwordLocator.fill(password);
     }
 
     async clickLoginButton(){
