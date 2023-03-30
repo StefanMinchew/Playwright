@@ -62,7 +62,7 @@ test.describe('Cart page test cases', () => {
             await cartPage.clickCancelButton();
         })
 
-        test('User can finish buying a product #sanity', async ({ loginPage, homePage, cartPage }) => {
+        test('User can finish buying a product #sanity #skipOnMaster', async ({ loginPage, homePage, cartPage }) => {
             await loginPage.login();
             await homePage.addToCartFirstItem();
             const initial = await homePage.getTheFirstItemPrice();
