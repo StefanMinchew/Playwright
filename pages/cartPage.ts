@@ -163,4 +163,5 @@ export default class CartPage {
         const errorMessage: String = await this.errorMessageLocator.innerText();
         expect(errorMessage).toEqual(error_messages_data.missingPostalcodeErrorMessage);
     }
+    
 }
